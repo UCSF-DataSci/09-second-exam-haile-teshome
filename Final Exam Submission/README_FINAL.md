@@ -5,6 +5,7 @@ This project aims to analyze multiple sclerosis (MS) patient data to investigate
 3. **Statistical Analysis** - Conduct statistical tests on walking speed and cost to uncover significant trends.
 4. **Data Visualization** - Generate insightful visualizations to represent findings.
 
+Each step builds upon the previous, creating a comprehensive analysis pipeline. The provided scripts are designed to be executed in sequence, with each step’s output feeding into the subsequent stages.
 
 ## Files and Directories
 - **generate_dirty_data.py**: Script to generate initial raw data (`ms_data_dirty.csv`).
@@ -52,8 +53,19 @@ This project aims to analyze multiple sclerosis (MS) patient data to investigate
    ```
 
 3. **Output**: 
-   - `ms_data.csv`: Cleaned data file.
+   - `ms_data.csv`: Cleaned data file with 15,389 rows.
    - `insurance.lst`: File listing available insurance types.
+
+### Data Preparation Results
+- **Total Number of Visits**: 15,389
+- **First 5 Records of Cleaned Data**:
+   ```
+   patient_id,visit_date,age,education_level,walking_speed
+   P0001,2020-01-22,33.84,Graduate,4.84
+   P0001,2020-05-05,34.12,Graduate,4.84
+   P0001,2020-07-23,34.34,Graduate,5.39
+   P0001,2020-10-16,34.57,Graduate,5.38
+   ```
 
 ## 2. Data Analysis (`analyze_visits.py`)
 **Script**: `analyze_visits.py`
@@ -72,6 +84,22 @@ This project aims to analyze multiple sclerosis (MS) patient data to investigate
    ```
 
 2. **Output**: Summary statistics printed to the console.
+
+### Data Analysis Results
+- **Mean Walking Speed by Education Level**:
+  ```
+  Bachelors       4.029
+  Graduate        4.469
+  High School     3.261
+  Some College    3.647
+  ```
+- **Mean Visit Costs by Insurance Type**:
+  ```
+  HMO      199.752
+  PPO       99.689
+  Value    300.013
+  ```
+- **Age Effect on Walking Speed**: -0.688 (correlation coefficient)
 
 ## 3. Statistical Analysis (`stats_analysis.py`)
 **Script**: `stats_analysis.py`
@@ -93,6 +121,20 @@ This project aims to analyze multiple sclerosis (MS) patient data to investigate
    ```
 
 2. **Output**: Detailed statistical analysis results printed to the console, including regression summaries, effect sizes, and ANOVA results.
+
+### Statistical Analysis Results
+- **Regression Analysis on Walking Speed**:
+  - Intercept: 5.614
+  - `education_level` (Graduate): 0.394
+  - `education_level` (High School): -0.804
+  - `education_level` (Some College): -0.406
+  - `age`: -0.030
+- **Effect Sizes (Cohen's d) Between Insurance Types**:
+  - Value vs HMO: 5.05
+  - Value vs PPO: 10.19
+  - HMO vs PPO: 5.03
+- **ANOVA Results**:
+  - Interaction between `education_level` and `age`: Not statistically significant (p > 0.05)
 
 ## 4. Data Visualization (`visualize.ipynb`)
 **Notebook**: `visualize.ipynb`
@@ -123,6 +165,5 @@ This project aims to analyze multiple sclerosis (MS) patient data to investigate
 - **Cost Analysis**:
   - **Cost Distributions**: Significant cost differences observed across insurance types, with mean costs varying as expected.
   - **Effect Sizes**: Cohen’s d effect sizes suggest substantial practical significance between certain insurance types.
-
 
 
